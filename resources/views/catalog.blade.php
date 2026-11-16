@@ -1,0 +1,26 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+  <div class="row justify-content-center">
+    @foreach($product as $item)
+      <div class="card" style="width: 18rem; margin: 10px">
+        <img src="{{$item->img}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{$item->name}}</h5>
+          <p class="card-text">{{$item->price}} рублей</p>
+          <p class="card-text">{{$item->description}}</p>
+          <a href="{{route('product', $item->id_product)}}" class="btn btn-primary">Перейти куда-нибудь</a>
+          <form action="{{ route('cart.add', $item->id_product) }}" method="POST">
+            @csrf
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="btn btn-primary">В корзину</button>
+          </form>
+
+        </div>
+      </div>
+    @endforeach
+</div>
+
+
+@endsection
